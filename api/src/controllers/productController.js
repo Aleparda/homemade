@@ -30,8 +30,44 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const getProductById = async (req, res) => {
+    
+    try{
+        const product = await productService.getProductById(req.params.id);
+        if(!product) return res.status(404).json({ status: 'error', message: 'Producto no encontrado'});
+        res.status(200).json({ status: 'success', data: product });
+    }catch(error){
+        res.status(500).json({ status: 'error', message: error.message });
+    }
+};
+
+const updateProduct = async (req, res) => {
+    
+    try{
+        const product = await productService.updateProduct(req.params.id, req.body);
+        if(!product) return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
+        res.status(200).json({ status: 'success', data: product });
+    }catch(error){
+        res.status(400).json({ status: 'error', message: error.message });
+    }
+};
+
+const deleteProduct = async (req, res) => {
+    
+    try{
+        const result = await productService.deleteProduct(req.params.id);
+        if (!result) return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
+        res.status(200).json({ status: 'success', message: 'Product borrado correctamente' });
+    }catch(error){
+        res.status(500).json({ status: 'error', message: error.message});
+    }
+}
+
 
 module.exports = {
     createProduct,
     getAllProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
 }

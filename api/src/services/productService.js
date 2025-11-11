@@ -19,10 +19,25 @@ const getAllProducts = async () => {
     return await Product.find();
 }
 
+const getProductById = async (id) => {
+    return await Product.findById(id);
+}
+
+const updateProduct = async (id, updateData) => {
+    return await Product.findByIdAndUpdate(id, updateData, {new: true});
+};
+
+const deleteProduct = async (id) => {
+    return await Product.findByIdAndDelete(id);
+}
+
 // Exporta createProduct: para poder usarla en otras 
 // partes de tu aplicación, como en tus rutas o controladores.
 module.exports = {
     createProduct,
     getAllProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct,
 };
 
