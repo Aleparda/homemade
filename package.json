@@ -16,5 +16,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Aleparda: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@github.com/Aleparda/homemade.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aleparda/homemade/issues"
+  },
+  "homepage": "https://github.com/Aleparda/homemade#readme"
 }
