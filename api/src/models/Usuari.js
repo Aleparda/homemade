@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const bcrypt = require('bcrypt');
+
 const usuariSchema = new mongoose.Schema({
 
     nom: {
@@ -13,26 +15,30 @@ const usuariSchema = new mongoose.Schema({
         unique: true,               // No duplicados
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Validación email con regex
     },
-    edat: {
-        type: Number,
-        min: 18,
-        max: 99,
-    },
-    rol: {
+    password: {
         type: String,
-        enum: ['client', 'admin'],  // Solo estos valores
-        default: 'client',
+        required: true
     },
+
 
 });
 
+// Antes de guardar, encriptar la contraseña
+usuariSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) return next();
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+})
+
+
 // Validación del email
-usuariSchema.path('email').validate(function (value){
+/*usuariSchema.path('email').validate(function (value){
     // Para validar un dominio del email
     return value.endsWidth('@gmail.com');
-}, 'El Email tiene que ser de @gmail.com');
+}, 'El Email tiene que ser de @gmail.com');*/
 
-module.exports = mongoose.model('Usuario', usuariSchema);
+module.exports = mongoose.model('Usuari', usuariSchema);
 // mongoose.model: Crea un modelo de Mongoose llamado 'Usuari' basado en el 
 // esquema usuariSchema. Este modelo es como una clase que te permite 
 // interactuar con la colección de MongoDB correspondiente y 

@@ -12,6 +12,7 @@ const connectDB = require('./config/db');
 // Todas las rutas definidas en routes/productRoutes.js 
 // (como POST, GET, etc., en /api/products).
 const productRoutes = require('./routes/productRoutes');
+const usuariRoutes = require('./routes/usuariRoutes');
 
 // Crea una instancia de una aplicación Express 
 // que será la que maneje las rutas
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
 // Todas las peticiones a /api/products usarán las rutas 
 // definidas en productRoutes.js.
 app.use('/api/products', productRoutes);
+app.use('/api/usuari', usuariRoutes);
 
 // Asigna al puerto la variable de entorno PORT, si está definida, o usa 3000 por defecto.
 const PORT = process.env.PORT || 3000;
